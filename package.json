@@ -1,0 +1,24 @@
+{
+  "name": "rx",
+  "version": "1.0.0",
+  "description": "Use regex in the command line, the right way.",
+  "main": "src/index.js",
+  "bin": {
+    "rx": "src/index.js"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "regex",
+    "command",
+    "line",
+    "parsing",
+    "pipe"
+  ],
+  "author": "NikxDa",
+  "license": "MIT",
+  "dependencies": {
+    "minimist": "^1.2.0"
+  }
+}

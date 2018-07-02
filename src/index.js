@@ -3,18 +3,10 @@
 // rx by NikxDa
 
 // Dependencies
-const minimist = require ("minimist");
+const parseCmd = require ("./cmd");
 
 // Read arguments
-const argv = minimist (process.argv.slice (2), {
-    boolean: ["e", "i"],
-    string: [0, 2],
-    alias: {
-        e: ["extract"],
-        i: ["insensitive"]
-    }
-});
-
+const argv = parseCmd ();
 console.log (argv);
 
 // Allow piping input
@@ -72,3 +64,33 @@ function finalize (data) {
     process.stdout.write (data);
     process.exit ();
 }
+
+// Parse command line arguments
+function parseCommandLineArgs () {
+    // Grab arguments
+    const arguments = process.argv.slice (2);
+
+    // Specify data
+    const data = {}
+
+    for (let arg of arguments) {
+        // What type do we have?
+        if (arg.startsWith ("--")) {
+            data [arg.substr (2)] = true;
+        } else if (arg.startsWith ("-")) {
+            const flags = arg.substr (1);
+            flags.split ("").forEach (itm => data [itm] = true)
+        } else {
+            data._ = [...(data._ || []), arg];
+        }
+    }
+
+    return data;
+}
+
+/*
+Flags:
+e - extract - Extracts the matched regex string
+g - global - Does not split at newline characters
+i - insensitive - Case insensitive matching
+*/
